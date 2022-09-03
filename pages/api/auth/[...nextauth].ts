@@ -1,7 +1,7 @@
 import NextAuth, { NextAuthOptions } from "next-auth";
-import GithubProvider from "next-auth/providers/github";
 import { PrismaAdapter } from "@next-auth/prisma-adapter";
 import { db } from "../../../util/db";
+import EmailProvider from "next-auth/providers/email"
 
 export const nextAuthOptions: NextAuthOptions = {
   // Configure one or more authentication providers
@@ -17,9 +17,4 @@ export const nextAuthOptions: NextAuthOptions = {
 
 export default NextAuth(nextAuthOptions);
 
-function EmailProvider(arg0: {
-  server: string | undefined;
-  from: string | undefined;
-}): import("next-auth/providers").Provider {
-  throw new Error("Function not implemented.");
-}
+
