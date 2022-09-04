@@ -8,19 +8,19 @@ export const nextAuthOptions: NextAuthOptions = {
   // Configure one or more authentication providers
   providers: [
     // add email provider later
-    EmailProvider({
-      server: {
-        host: process.env.EMAIL_SERVER_HOST,
-        port: process.env.EMAIL_SERVER_PORT,
-        auth: {
-          user: process.env.EMAIL_SERVER_USER,
-          pass: process.env.EMAIL_SERVER_PASSWORD,
-        },
-      },
+    // EmailProvider({
+    //   server: {
+    //     host: process.env.EMAIL_SERVER_HOST,
+    //     port: process.env.EMAIL_SERVER_PORT,
+    //     auth: {
+    //       user: process.env.EMAIL_SERVER_USER,
+    //       pass: process.env.EMAIL_SERVER_PASSWORD,
+    //     },
+    //   },
 
-      from: process.env.EMAIL_FROM,
-      // maxAge: 24 * 60 * 60, // How long email links are valid for (default 24h)
-    }),
+    //   from: process.env.EMAIL_FROM,
+    //   // maxAge: 24 * 60 * 60, // How long email links are valid for (default 24h)
+    // }),
     GithubProvider({
       // @ts-ignore
       clientId: process.env.GITHUB_CLIENT_ID,
