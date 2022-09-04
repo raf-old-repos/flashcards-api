@@ -7,6 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
+    "vercel-build": "yarn prisma db push && next build",
     "prisma:generate": "prisma generate"
   },
   "dependencies": {
