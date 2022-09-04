@@ -40,9 +40,10 @@ model User {
   id            String    @id @default(auto()) @map("_id") @db.ObjectId
   name          String?
   email         String?   @unique
+  admin         Boolean?
   emailVerified DateTime?
-  firstName     String
-  lastName      String
+  firstName     String?
+  lastName      String?
   image         String?
   accounts      Account[]
   sessions      Session[]
@@ -68,9 +69,17 @@ model Card {
 }
 
 model StudySet {
-  id      String @id @default(auto()) @map("_id") @db.ObjectId
-  creator User   @relation(fields: [userId], references: [id])
+  id       String @id @default(auto()) @map("_id") @db.ObjectId
+  creator  User   @relation(fields: [userId], references: [id])
+  name     String @db.String @unique
+  review   Review? @relation(fields: [reviewId], references: [id])
+  cards    Card[]
+  userId   String @db.ObjectId
+  reviewId String? @db.ObjectId
+}
 
-  cards  Card[]
-  userId String @db.ObjectId
+model Review {
+  id       String     @id @default(auto()) @map("_id") @db.ObjectId
+  score    Int
+  StudySet StudySet[]
 }
