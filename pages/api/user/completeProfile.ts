@@ -2,26 +2,53 @@ import { NextApiRequest, NextApiResponse } from "next";
 import { db } from "../../../util/db";
 import { unstable_getServerSession } from "next-auth/next";
 import { nextAuthOptions } from "../auth/[...nextauth]";
+import { Prisma } from "@prisma/client";
 
 interface Response {}
 
 const method = "POST";
 
+type ToComplete = "admin" | "firstName" | "lastName";
+
+interface UserDetails extends Pick<Prisma.UserCreateInput, ToComplete> {}
+
+interface ExtendedNextApiRequest extends NextApiRequest {
+  body: {
+    readonly id: string;
+    readonly details: UserDetails;
+  };
+}
+
 export default async function handler(
-  req: NextApiRequest,
+  req: ExtendedNextApiRequest,
   res: NextApiResponse<Response>
 ) {
   try {
     const session = await unstable_getServerSession(req, res, nextAuthOptions);
-    console.log(session);
+
     if (!session) throw new Error("Unauthenticated");
+
+    const { id, details } = req.body;
 
     switch (req.method) {
       case method: {
-        
-        return res.status(200).json({  });
+        const completedProfile = await db.user.update({
+          where: {
+            id,
+          },
+          data: {
+            admin: details.admin,
+            profileComplete: true,
+            firstName: details.firstName,
+            lastName: details.lastName,
+          },
+        });
+
+        return res.status(200).json({
+          completedProfile,
+        });
       }
-      
+
       default: {
         throw new Error(
           `Route "${req.url}" accepts "${method}" method. Provided "${req.method}"`
