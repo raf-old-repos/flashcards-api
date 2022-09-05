@@ -7,8 +7,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "prisma:generate": "prisma generate",
-    "postbuild": "cp -R node_modules/@prisma/engines/* .vercel_build_output/functions/node/render/;cp prisma/schema.prisma .vercel_build_output/functions/node/render/"
+    "vercel-build": "yarn prisma generate && yarn prisma db push && next build",
+    "prisma:generate": "prisma generate"
   },
   "dependencies": {
     "@next-auth/prisma-adapter": "^1.0.4",
