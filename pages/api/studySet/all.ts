@@ -3,7 +3,7 @@ import { db } from "../../../util/db";
 import { unstable_getServerSession } from "next-auth/next";
 import { nextAuthOptions } from "../auth/[...nextauth]";
 
-interface Response {}
+interface Response { }
 
 const method = "GET";
 
@@ -18,7 +18,11 @@ export default async function handler(
 
     switch (req.method) {
       case method: {
-        const studySets = await db.studySet.findMany();
+        const studySets = await db.studySet.findMany({
+          include: {
+            cards: true
+          }
+        });
 
         return res.status(200).json({ studySets });
       }
