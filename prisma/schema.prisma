@@ -81,8 +81,9 @@ model StudySet {
 }
 
 model Review {
-  id         String    @id @default(auto()) @map("_id") @db.ObjectId
-  score      Int
-  StudySet   StudySet? @relation(fields: [studySetId], references: [id])
-  studySetId String?   @db.ObjectId
+  id          String    @id @default(auto()) @map("_id") @db.ObjectId
+  score       Int
+  studySet    StudySet? @relation(fields: [studySetId], references: [id])
+  description String?
+  studySetId  String?   @db.ObjectId
 }
