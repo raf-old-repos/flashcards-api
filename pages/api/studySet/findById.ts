@@ -24,6 +24,9 @@ export default async function handler(
           where: {
             id,
           },
+          include: {
+            cards: true
+          }
         });
         return res.status(200).json({ studySet });
       }

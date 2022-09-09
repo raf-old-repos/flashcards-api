@@ -3,10 +3,11 @@ import { db } from "../../../util/db";
 import { unstable_getServerSession } from "next-auth/next";
 import { nextAuthOptions } from "../auth/[...nextauth]";
 import { Prisma } from "@prisma/client";
+import { Method } from "../../../types/Method";
 
 interface Response {}
 
-const method = "POST";
+const method: Method = "POST";
 
 type ToComplete = "admin" | "firstName" | "lastName";
 
